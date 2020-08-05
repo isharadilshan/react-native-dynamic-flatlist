@@ -1,18 +1,40 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
 import ColorBox from './components/ColorBox';
+
+const COLORS = [
+  { colorName: 'Base03', hexCode: '#002b36' },
+  { colorName: 'Base02', hexCode: '#073642' },
+  { colorName: 'Base01', hexCode: '#586e75' },
+  { colorName: 'Base00', hexCode: '#657b83' },
+  { colorName: 'Base0', hexCode: '#839496' },
+  { colorName: 'Base1', hexCode: '#93a1a1' },
+  { colorName: 'Base2', hexCode: '#eee8d5' },
+  { colorName: 'Base3', hexCode: '#fdf6e3' },
+  { colorName: 'Yellow', hexCode: '#b58900' },
+  { colorName: 'Orange', hexCode: '#cb4b16' },
+  { colorName: 'Red', hexCode: '#dc322f' },
+  { colorName: 'Magenta', hexCode: '#d33682' },
+  { colorName: 'Violet', hexCode: '#6c71c4' },
+  { colorName: 'Blue', hexCode: '#268bd2' },
+  { colorName: 'Cyan', hexCode: '#2aa198' },
+  { colorName: 'Green', hexCode: '#859900' },
+];
 
 const App = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.headerTex}>
-          Here are some boxes of different colors
-        </Text>
-        <ColorBox color={'#2aa198'} />
-        <ColorBox color={'#268bd2'} />
-        <ColorBox color={'#d33682'} />
-        <ColorBox color={'#cb4b16'} />
+        <FlatList
+          data={COLORS}
+          keyExtractor={(item) => item.colorName}
+          renderItem={({ item }) => (
+            <ColorBox colorName={item.colorName} hexCode={item.hexCode} />
+          )}
+          ListHeaderComponent={() => (
+            <Text style={styles.listHeader}>This is color list header</Text>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
@@ -23,33 +45,11 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingHorizontal: 10,
   },
-  headerTex: {
-    fontWeight: 'bold',
+  listHeader: {
     fontSize: 20,
-  },
-  box: {
-    margin: 5,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  boxText: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: 'bold',
+    marginBottom: 20,
     textAlign: 'center',
-  },
-  cyan: {
-    backgroundColor: '#2aa198',
-  },
-  blue: {
-    backgroundColor: '#268bd2',
-  },
-  magenta: {
-    backgroundColor: '#d33682',
-  },
-  orange: {
-    backgroundColor: '#cb4b16',
+    fontWeight: 'bold',
   },
 });
 export default App;
